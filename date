@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Invitation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe6eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #d63384;
+            font-size: 26px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .btn-container {
+            position: relative;
+            margin-top: 30px;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        .primary-btn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+        .primary-btn:hover {
+            background-color: #e03b55;
+        }
+        .evading-btn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute;
+        }
+        /* Specific positioning for evasion buttons so they start aligned */
+        #horror-btn { right: 80px; }
+        #no-btn { right: 80px; }
+        #other-btn { right: 60px; }
+
+        .final-message {
+            font-size: 26px;
+            color: #ff4d6d;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+        .heart {
+            font-size: 50px;
+            animation: beat .25s infinite alternate;
+            transform-origin: center;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        @keyframes beat{
+            to { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- STEP 1: Movie Choice -->
+        <div id="step1" class="step active">
+            <h1>Would you like a cozy movie date with me?<br><br>Select a movie genre:</h1>
+            <div class="btn-container">
+                <button class="primary-btn" onclick="nextStep(2)">Romantic</button>
+                <button id="horror-btn" class="evading-btn" onmouseover="moveButton('horror-btn')">Horror</button>
+            </div>
+        </div>
+
+        <!-- STEP 2: Yes or No -->
+        <div id="step2" class="step">
+            <h1>Are you sure? 🥰</h1>
+            <div class="btn-container">
+                <button class="primary-btn" onclick="nextStep(3)">Yes</button>
+                <button id="no-btn" class="evading-btn" onmouseover="moveButton('no-btn')">No</button>
+            </div>
+        </div>
+
+        <!-- STEP 3: Pick Date -->
+        <div id="step3" class="step">
+            <h1>Pick a date for our movie night:</h1>
+            <div class="btn-container">
+                <button class="primary-btn" onclick="showFinal()">2026-08-22</button>
+                <button id="other-btn" class="evading-btn" onmouseover="moveButton('other-btn')">Other</button>
+            </div>
+        </div>
+
+        <!-- STEP 4: Success Message -->
+        <div id="step4" class="step">
+            <div class="final-message">
+                Your romantic date is booked with Jay.<br>You should smile now :)
+            </div>
+            <div class="heart">❤️</div>
+        </div>
+
+    </div>
+
+    <script>
+        function moveButton(buttonId) {
+            const btn = document.getElementById(buttonId);
+            
+            // Generate random movement offsets
+            const x = Math.floor(Math.random() * 260) - 130; 
+            const y = Math.floor(Math.random() * 120) - 60;
+            
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function nextStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            // Show the requested step
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        function showFinal() {
+            nextStep(4);
+            document.body.style.backgroundColor = '#fff0f3';
+        }
+    </script>
+</body>
+</html>
